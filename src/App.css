@@ -1,8 +1,39 @@
 .App {
-  padding: 30px;
-  display: flex;
+    padding: 30px;
+    display: flex;
 }
 
 .App > div {
-  margin-right: 50px;
+    margin-right: 50px;
+}
+
+.isDone {
+    text-decoration: line-through;
+    font-weight: bold;
+    color: limegreen;
+}
+
+.notIsDone {
+    font-weight: bold;
+    color: hotpink;
+}
+
+.btn {
+    color: white;
+    background-color: #8cde8c;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    padding: 3px;
+    margin-right: 5px;
+}
+
+.active-btn {
+    background-color: #03a603;
+    color: white;
+}
+
+.error {
+    border: 2px solid hotpink;
+    outline: none;
 }
