@@ -122,7 +122,6 @@ function App() {
         return (
             <Grid item key={tl.id}>
                 <Paper
-                    //variant={'outlined'}
                     elevation={8}
                     style={{width: '280px', padding: '20px'}}>
                     <Todolist
