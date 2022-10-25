@@ -1,11 +1,11 @@
-.App {
+/*.App {
     padding: 30px;
     display: flex;
 }
 
 .App > div {
     margin-right: 50px;
-}
+}*/
 
 .isDone {
     text-decoration: line-through;
@@ -18,7 +18,7 @@
     color: hotpink;
 }
 
-.btn {
+/*.btn {
     color: white;
     background-color: #8cde8c;
     cursor: pointer;
@@ -36,4 +36,4 @@
 .error {
     border: 2px solid hotpink;
     outline: none;
-}
+}*/
