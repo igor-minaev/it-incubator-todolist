@@ -16,7 +16,7 @@ import {Menu} from "@material-ui/icons";
 //VUI
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
-type TodolistType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -26,6 +26,7 @@ type TodolistType = {
 type TaskStateType = {
     [todoListId: string]: Array<TaskType>
 }
+
 
 function App() {
     //BLL
@@ -91,9 +92,11 @@ function App() {
     }
     //D:
     const removeTodolist = (todolistId: string) => {
-        setTodolists(todolists.filter(tl => tl.id !== todolistId))
+        const nextState = todolists.filter(tl => tl.id !== todolistId)
+        setTodolists(nextState)
         delete tasks[todolistId]
     }
+    // случай => имя функции, которое определяет действие + доп. сведения
     //C:
     const addTodolist = (title: string) => {
         const newTodolistId: string = v1()
@@ -102,7 +105,8 @@ function App() {
             title: title,
             filter: 'all'
         }
-        setTodolists([...todolists, newTodolist])
+        const nextState = [...todolists, newTodolist]
+        setTodolists(nextState)
         setTasks({...tasks, [newTodolistId]: []})
     }
     //GUI
