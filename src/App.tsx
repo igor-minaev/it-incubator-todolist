@@ -3,6 +3,7 @@ import './App.css';
 import {TaskType, TodoList} from "./TodoList";
 
 function App() {
+    const title: string = "What to learn"
     const tasks: TaskType[] = [
         {id: 1, title: "HTML&CSS", isDone: true},
         {id: 2, title: "JS", isDone: true},
@@ -10,7 +11,7 @@ function App() {
     ]
     return (
         <div className="App">
-            <TodoList title="What to learn" tasks={tasks}/>
+            <TodoList title={title} tasks={tasks}/>
         </div>
     );
 }
