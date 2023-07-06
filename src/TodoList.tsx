@@ -2,13 +2,15 @@ import React, {ChangeEvent, FC, useRef, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from "./App";
 
 type TodoListPropsType = {
+    id: string
     title: string
     filter: FilterValuesType
     tasks: TaskType[]
-    removeTask: (taskId: string) => void
-    changeFilter: (filter: FilterValuesType) => void
-    addTask: (title: string) => void
-    changeTaskStatus: (taskId: string, newIsDoneValue: boolean) => void
+    removeTask: (todolistId: string, taskId: string) => void
+    changeFilter: (todolistId: string, filter: FilterValuesType) => void
+    addTask: (todolistId: string, title: string) => void
+    changeTaskStatus: (todolistId: string, taskId: string, newIsDoneValue: boolean) => void
+    removeTodolist: (todolistId: string) => void
 }
 
 export type TaskType = {
@@ -30,9 +32,9 @@ export const TodoList: FC<TodoListPropsType> = (props) => {
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<boolean>(false)
     const tasksJSX = props.tasks.map(task => {
-            const removeTaskHandler = () => props.removeTask(task.id)
+            const removeTaskHandler = () => props.removeTask(props.id, task.id)
             const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                props.changeTaskStatus(task.id, e.currentTarget.checked)
+                props.changeTaskStatus(props.id, task.id, e.currentTarget.checked)
             }
             const taskClasses = task.isDone ? 'task-isDone' : 'task'
             return (
@@ -54,7 +56,7 @@ export const TodoList: FC<TodoListPropsType> = (props) => {
     const addTaskHandler = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle) {
-            props.addTask(trimmedTitle)
+            props.addTask(props.id, trimmedTitle)
         } else {
             setError(true)
         }
@@ -68,14 +70,19 @@ export const TodoList: FC<TodoListPropsType> = (props) => {
     const titleMaxLengthWarning = isTitleLengthToLong ?
         <div style={{color: 'orangered'}}>Title is too long!</div> : null
     const userMessage = error ? <div style={{color: 'orangered'}}>Title is required!</div> : null
-    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && isAddBtnDisabled && addTaskHandler()
+    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && !isAddBtnDisabled && addTaskHandler()
 
-    const handlerCreator = (filter: FilterValuesType) => () => props.changeFilter(filter)
+    const handlerCreator = (filter: FilterValuesType) => () => props.changeFilter(props.id, filter)
     const inputClasses = error || isTitleLengthToLong ? "input-error" : ''
+
+    const removeTodolistHandler=()=>props.removeTodolist(props.id)
 
     return (
         <div className="todolist">
-            <h3>{props.title}</h3>
+            <h3>
+                {props.title}
+                <button onClick={removeTodolistHandler}>x</button>
+            </h3>
             <div>
                 {/*input with useRef*/}
                 {/*<input ref={taskTitleInput}/>*/}
