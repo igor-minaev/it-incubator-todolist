@@ -3,9 +3,20 @@ import './App.css';
 import {TaskType, TodoList} from "./TodoList";
 import {v1} from "uuid";
 
+type TodolistType = {
+    id: string
+    title: string
+    filter: FilterValuesType
+}
+
 export type FilterValuesType = "all" | "active" | "completed"
 
 function App() {
+
+    const [todolists, setTodolists] = useState<TodolistType[]>([
+        {id: v1(), title: 'What to learn', filter: "all"},
+        {id: v1(), title: 'What to buy', filter: "all"}
+    ])
 
     const title: string = "What to learn"
     const [tasks, setTasks] = useState<TaskType[]>([
